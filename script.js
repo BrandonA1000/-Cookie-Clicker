@@ -1,21 +1,55 @@
-var cookies = 0;
-var cookiesperclick = 1;
-var cps = 0;
-var grandmas = 0;
-var farms = 0;
-var factories = 0;
+var pizzas = 0;
+var pizzasPerClick = 1;
+var pps = 0;
 
-// Achievements
-var achievements = {
-    first_click: { name: "First Click", goal: "Earn 1 cookie", unlocked: false },
-    hundred_cookies: { name: "Decent Baker", goal: "Earn 100 cookies", unlocked: false },
-    thousand_cookies: { name: "Apprentice", goal: "Earn 1000 cookies", unlocked: false },
-    ten_grandmas: { name: "Grandma Gang", goal: "Buy 10 Grandmas", unlocked: false },
-    five_farms: { name: "Farmer", goal: "Buy 5 Farms", unlocked: false },
-    autoclicker: { name: "Autoclicker", goal: "Get 10 CPS", unlocked: false },
-    factory_builder: {name: "Factory Builder", goal: "Buy 3 factories", unlocked: false},
-    master_autoclicker:{name: "Master Autoclicker", goal: "Get 50 CPS", unlocked: false}
-};
+var chefs = 0;
+var ovens = 0;
+var restaurants = 0;
+
+let achievements = [
+    {
+        name: "First Slice",
+        goal: "Make 1 pizza",
+        unlocked: false,
+        check: () => pizzas >= 1
+    },
+    {
+        name: "Pizza Apprentice",
+        goal: "Make 100 pizzas",
+        unlocked: false,
+        check: () => pizzas >= 100
+    },
+    {
+        name: "Pizza Master",
+        goal: "Make 1000 pizzas",
+        unlocked: false,
+        check: () => pizzas >= 1000
+    },
+    {
+        name: "Chef Crew",
+        goal: "Hire 10 Chefs",
+        unlocked: false,
+        check: () => chefs >= 10
+    },
+    {
+        name: "Oven Operator",
+        goal: "Buy 5 Ovens",
+        unlocked: false,
+        check: () => ovens >= 5
+    },
+    {
+        name: "Pizza Machine",
+        goal: "Reach 10 PPS",
+        unlocked: false,
+        check: () => pps >= 10
+    },
+    {
+        name: "Restaurant Tycoon",
+        goal: "Own 3 Restaurants",
+        unlocked: false,
+        check: () => restaurants >= 3
+    }
+];
 
 function showPopup(text) {
     let popup = document.createElement("div");
@@ -26,115 +60,106 @@ function showPopup(text) {
     setTimeout(() => popup.remove(), 3000);
 }
 
-function unlock(key) {
-    if (!achievements[key].unlocked) {
-        achievements[key].unlocked = true;
-        showPopup("🏆 " + achievements[key].name);
-    }
-}
-
 function checkAchievements() {
-    if (cookies >= 1) unlock("first_click");
-    if (cookies >= 100) unlock("hundred_cookies");
-    if (cookies >= 1000) unlock("thousand_cookies");
-    if (grandmas >= 10) unlock("ten_grandmas");
-    if (farms >= 5) unlock("five_farms");
-    if (cps >= 10) unlock("autoclicker");
-    if(factories >= 3) unlock("factory_builder");
-    if (cps>= 50) unlock("master_autoclicker");
+    achievements.forEach(a => {
+        if (!a.unlocked && a.check()) {
+            a.unlocked = true;
+            showPopup("🏆 " + a.name);
+        }
+    });
 }
 
 function updateDisplay() {
     document.getElementById("scoreLabel").innerHTML =
-        "Cookies: " + cookies.toFixed(1) +
-        " (+" + cps.toFixed(1) + "/sec) | Grandmas: " + grandmas +
-        " | Farms: " + farms + " | Factories: " + factories;
+        "Pizzas: " + pizzas.toFixed(1) +
+        " (+" + pps.toFixed(1) + "/sec) | Chefs: " + chefs +
+        " | Ovens: " + ovens + " | Restaurants: " + restaurants;
 }
 
-function cookieClicked() {
-    cookies = Number((cookies + cookiesperclick).toFixed(1));
+function pizzaClicked() {
+    pizzas = Number((pizzas + pizzasPerClick).toFixed(1));
     updateDisplay();
     checkAchievements();
 }
 
 function buyupgrade1() {
-    if (cookies >= 10) {
-        cookies -= 10;
-        cookiesperclick = Number((cookiesperclick + 0.1).toFixed(1));
+    if (pizzas >= 10) {
+        pizzas -= 10;
+        pizzasPerClick = Number((pizzasPerClick + 0.1).toFixed(1));
         updateDisplay();
         checkAchievements();
     }
 }
 
 function buyupgrade2() {
-    if (cookies >= 100) {
-        cookies -= 100;
-        cookiesperclick = Number((cookiesperclick + 1.2).toFixed(1));
+    if (pizzas >= 100) {
+        pizzas -= 100;
+        pizzasPerClick = Number((pizzasPerClick + 1.2).toFixed(1));
         updateDisplay();
         checkAchievements();
     }
 }
 
 function buyupgrade3() {
-    if (cookies >= 250) {
-        cookies -= 250;
-        cookiesperclick = Number((cookiesperclick + 3).toFixed(1));
+    if (pizzas >= 250) {
+        pizzas -= 250;
+        pizzasPerClick = Number((pizzasPerClick + 3).toFixed(1));
         updateDisplay();
         checkAchievements();
     }
 }
 
-function buyGrandma() {
-    if (cookies >= 50) {
-        cookies -= 50;
-        grandmas++;
-        cps = Number((cps + 0.1).toFixed(1));
+function buyChef() {
+    if (pizzas >= 50) {
+        pizzas -= 50;
+        chefs++;
+        pps = Number((pps + 0.1).toFixed(1));
         updateDisplay();
         checkAchievements();
     }
 }
 
-function buyFarm() {
-    if (cookies >= 500) {
-        cookies -= 500;
-        farms++;
-        cps = Number((cps + 1.5).toFixed(1));
+function buyOven() {
+    if (pizzas >= 500) {
+        pizzas -= 500;
+        ovens++;
+        pps = Number((pps + 1.5).toFixed(1));
         updateDisplay();
         checkAchievements();
     }
 }
 
-function buyFactory() {
-    if (cookies >= 2000) {
-        cookies -= 2000;
-        factories++;
-        cps = Number((cps + 5).toFixed(1));
+function buyRestaurant() {
+    if (pizzas >= 2000) {
+        pizzas -= 2000;
+        restaurants++;
+        pps = Number((pps + 5).toFixed(1));
         updateDisplay();
         checkAchievements();
     }
 }
 
-// Auto cookie generation
 setInterval(() => {
-    cookies = Number((cookies + cps).toFixed(1));
+    pizzas = Number((pizzas + pps).toFixed(1));
     updateDisplay();
     checkAchievements();
 }, 1000);
 
 function showAchievements() {
     let modal = document.getElementById("achievementModal");
-    let content =
-        "<div style='background: white; padding: 30px; border-radius: 10px; max-width: 400px; text-align: center;'>";
-    content += "<h2>🏆 Achievements</h2>";
 
-    for (let key in achievements) {
-        let ach = achievements[key];
-        let icon = ach.unlocked ? "✅" : "🔒";
-        content += `<p><strong>${icon} ${ach.name}</strong><br><small>${ach.goal}</small></p>`;
-    }
-
-    content +=
-        "<button onclick='closeAchievements()' style='padding: 10px 20px; cursor: pointer;'>Close</button></div>";
+    let content = `
+        <div style='background: white; padding: 30px; border-radius: 10px; max-width: 400px; text-align: center;'>
+            <h2>🏆 Achievements</h2>
+            ${achievements.map(a => `
+                <p>
+                    <strong>${a.unlocked ? "✅" : "🔒"} ${a.name}</strong><br>
+                    <small>${a.goal}</small>
+                </p>
+            `).join("")}
+            <button onclick='closeAchievements()' style='padding: 10px 20px;'>Close</button>
+        </div>
+    `;
 
     if (!modal) {
         modal = document.createElement("div");

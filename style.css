@@ -3,14 +3,12 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Score label */
 #scoreLabel {
     position: absolute;
     left: 550px;
     top: 100px;
 }
 
-/* Achievements button */
 button[onclick="showAchievements()"] {
     position: absolute;
     right: 20px;
@@ -20,8 +18,7 @@ button[onclick="showAchievements()"] {
     cursor: pointer;
 }
 
-/* Cookie button */
-button[onclick="cookieClicked()"] {
+button[onclick="pizzaClicked()"] {
     position: absolute;
     left: 650px;
     top: 200px;
@@ -32,30 +29,25 @@ button[onclick="cookieClicked()"] {
     cursor: pointer;
 }
 
-/* Section titles */
 h2 {
     position: absolute;
     color: black;
 }
 
-/* Click upgrades title */
 h2:nth-of-type(1) {
     left: 340px;
     top: 300px;
 }
 
-/* Auto upgrades title */
 h2:nth-of-type(2) {
     left: 1000px;
     top: 300px;
 }
 
-/* Upgrade buttons */
 button {
     cursor: pointer;
 }
 
-/* Click upgrade buttons */
 button[onclick="buyupgrade1()"] {
     position: absolute;
     left: 340px;
@@ -80,8 +72,7 @@ button[onclick="buyupgrade3()"] {
     height: 50px;
 }
 
-/* Auto upgrade buttons */
-button[onclick="buyGrandma()"] {
+button[onclick="buyChef()"] {
     position: absolute;
     left: 1000px;
     top: 350px;
@@ -89,7 +80,7 @@ button[onclick="buyGrandma()"] {
     height: 50px;
 }
 
-button[onclick="buyFarm()"] {
+button[onclick="buyOven()"] {
     position: absolute;
     left: 1000px;
     top: 400px;
@@ -97,7 +88,7 @@ button[onclick="buyFarm()"] {
     height: 50px;
 }
 
-button[onclick="buyFactory()"] {
+button[onclick="buyRestaurant()"] {
     position: absolute;
     left: 1000px;
     top: 450px;
@@ -105,7 +96,6 @@ button[onclick="buyFactory()"] {
     height: 50px;
 }
 
-/* Achievement modal */
 #achievementModal {
     position: fixed;
     top: 0;
