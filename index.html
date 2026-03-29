@@ -3,60 +3,205 @@
 <head>
     <title>Pizza Clicker</title>
 
+    <!-- Combined CSS -->
+    <style>
+        /* General page styling */
+        body {
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Score label */
+        #scoreLabel {
+            position: absolute;
+            left: 575px;
+            top: 100px;
+        }
+
+        /* Achievements button */
+        #achievementsBtn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* ⭐ Updates button */
+        #updatesBtn {
+            position: absolute;
+            right: 20px;
+            top: 70px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Pizza button */
+        #pizzaButton {
+            position: absolute;
+            left: 675px;
+            top: 200px;
+            width: 100px;
+            height: 100px;
+            font-size: 70px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Section titles */
+        #clickTitle {
+            position: absolute;
+            left: 340px;
+            top: 300px;
+        }
+
+        #autoTitle {
+            position: absolute;
+            left: 1000px;
+            top: 300px;
+        }
+
+        /* Click upgrade buttons */
+        #upgrade1, #upgrade2, #upgrade3 {
+            position: absolute;
+            left: 340px;
+            width: 150px;
+            height: 50px;
+        }
+
+        #upgrade1 { top: 350px; }
+        #upgrade2 { top: 400px; }
+        #upgrade3 { top: 450px; }
+
+        /* Auto upgrade buttons */
+        #chefBtn, #ovenBtn, #restaurantBtn, #managerBtn {
+            position: absolute;
+            left: 1000px;
+            width: 150px;
+            height: 50px;
+        }
+
+        #chefBtn { top: 350px; }
+        #ovenBtn { top: 400px; }
+        #restaurantBtn { top: 450px; }
+        #managerBtn { top: 500px; }
+
+        /* Auto upgrade labels */
+        #chefLabel, #ovenLabel, #restaurantLabel, #managerLabel {
+            position: absolute;
+            left: 1160px;
+            font-weight: bold;
+        }
+
+        #chefLabel { top: 350px; }
+        #ovenLabel { top: 400px; }
+        #restaurantLabel { top: 450px; }
+        #managerLabel { top: 500px; }
+
+        /* Achievements modal overlay */
+        #achievementModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+        }
+
+        /* Achievements white box */
+        .achievement-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 400px;
+            text-align: center;
+            z-index: 9999;
+        }
+
+        /* ⭐ Updates modal overlay */
+        #updatesModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+        }
+
+        /* ⭐ Updates white box */
+        .updates-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            height: 300px;
+            text-align: center;
+            z-index: 9999;
+        }
+    </style>
 </head>
 
 <body>
 
-<h1 id="scoreLabel" style="position: absolute; left: 550px; top: 100px;">
-    Pizzas: 0
-</h1>
+    <h1 id="scoreLabel">Pizzas: 0</h1>
 
-<button onclick="showAchievements()" 
-style="position: absolute; right: 20px; top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer;">
-  🏆 Achievements
-</button>
+    <button id="achievementsBtn" onclick="showAchievements()">🏆 Achievements</button>
 
-<button onclick="pizzaClicked()" 
-style="position: absolute; left: 650px; top: 200px; width: 100px; height: 100px; 
-font-size: 70px; border-radius: 50%; cursor: pointer;">
-  🍕
-</button>
+    <!-- ⭐ NEW UPDATES BUTTON -->
+    <button id="updatesBtn" onclick="openUpdates()">Updates</button>
 
-<h2 style="position: absolute; left: 340px; top: 300px; color: black;">Click Upgrades</h2>
+    <button id="pizzaButton" onclick="pizzaClicked()">🍕</button>
 
-<button onclick="buyupgrade1()"
-style="position: absolute; left: 340px; top: 350px; width: 150px; height: 50px;">
-  Upgrade 1 (Cost: 10 Pizzas +0.1 per click)
-</button>
+    <h2 id="clickTitle">Click Upgrades</h2>
 
-<button onclick="buyupgrade2()"
-style="position: absolute; left: 340px; top: 400px; width: 150px; height: 50px;">
-  Upgrade 2 (Cost: 100 Pizzas +1.2 per click)
-</button>
+    <button id="upgrade1" onclick="buyupgrade1()">Upgrade 1 (Cost: 10 Pizzas +0.1 per click)</button>
+    <button id="upgrade2" onclick="buyupgrade2()">Upgrade 2 (Cost: 100 Pizzas +1.2 per click)</button>
+    <button id="upgrade3" onclick="buyupgrade3()">Upgrade 3 (Cost: 250 Pizzas +3 per click)</button>
 
-<button onclick="buyupgrade3()"
-style="position: absolute; left: 340px; top: 450px; width: 150px; height: 50px;">
-  Upgrade 3 (Cost: 250 Pizzas +3 per click)
-</button>
+    <h2 id="autoTitle">Auto Upgrades</h2>
 
-<h2 style="position: absolute; left: 1000px; top: 300px; color: black;">Auto Upgrades</h2>
+    <button id="chefBtn" onclick="buyChef()">Chef (Cost: 50 Pizzas +0.1/sec)</button>
+    <p id="chefLabel">Owned: 0</p>
 
-<button onclick="buyChef()"
-style="position: absolute; left: 1000px; top: 350px; width: 150px; height: 50px;">
-  Chef (Cost: 50 Pizzas +0.1/sec)
-</button>
+    <button id="ovenBtn" onclick="buyOven()">Oven (Cost: 500 Pizzas +1.5/sec)</button>
+    <p id="ovenLabel">Owned: 0</p>
 
-<button onclick="buyOven()"
-style="position: absolute; left: 1000px; top: 400px; width: 150px; height: 50px;">
-  Oven (Cost: 500 Pizzas +1.5/sec)
-</button>
+    <button id="restaurantBtn" onclick="buyRestaurant()">Restaurant (Cost: 2000 Pizzas +5/sec)</button>
+    <p id="restaurantLabel">Owned: 0</p>
 
-<button onclick="buyRestaurant()"
-style="position: absolute; left: 1000px; top: 450px; width: 150px; height: 50px;">
-  Restaurant (Cost: 2000 Pizzas +5/sec)
-</button>
+    <button id="managerBtn" onclick="buyManager()">Manager (Cost: 5000 Pizzas +17.5/sec)</button>
+    <p id="managerLabel">Owned: 0</p>
 
-<script src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
-</body>  
+    <!-- ⭐ NEW UPDATES POPUP -->
+<div id="updatesModal">
+    <div class="updates-box">
+        <h2>Updates<br>Version 1.0.1<br>New Upgrades:<br>Manager<br>New Achievements:<br> Robotic Workers<br> Name Changes to Achievements <br> More organized game UI<br> More Updates in the future....</h2>
+        <button onclick="closeUpdates()">Close</button>
+    </div>
+</div>
+
+
+    <script>
+        function openUpdates() {
+            document.getElementById("updatesModal").style.display = "flex";
+        }
+
+        function closeUpdates() {
+            document.getElementById("updatesModal").style.display = "none";
+        }
+    </script>
+
+    <script src="script.js"></script>
+
+</body>
 </html>

@@ -5,6 +5,7 @@ var pps = 0;
 var chefs = 0;
 var ovens = 0;
 var restaurants = 0;
+var managers = 0;
 
 let achievements = [
     {
@@ -14,33 +15,33 @@ let achievements = [
         check: () => pizzas >= 1
     },
     {
-        name: "Pizza Apprentice",
+        name: "Minimum Wage",
         goal: "Make 100 pizzas",
         unlocked: false,
         check: () => pizzas >= 100
     },
     {
-        name: "Pizza Master",
+        name: "Beginner ",
         goal: "Make 1000 pizzas",
         unlocked: false,
         check: () => pizzas >= 1000
     },
     {
-        name: "Chef Crew",
+        name: "Boss",
         goal: "Hire 10 Chefs",
         unlocked: false,
         check: () => chefs >= 10
     },
     {
-        name: "Oven Operator",
+        name: "Oven Starter",
         goal: "Buy 5 Ovens",
         unlocked: false,
         check: () => ovens >= 5
     },
     {
-        name: "Pizza Machine",
-        goal: "Reach 10 PPS",
-        unlocked: false,
+        name: "Pizza Machine", 
+        goal: "Reach 10 PPS", 
+        unlocked: false, 
         check: () => pps >= 10
     },
     {
@@ -48,17 +49,15 @@ let achievements = [
         goal: "Own 3 Restaurants",
         unlocked: false,
         check: () => restaurants >= 3
+    },
+    { 
+        name: "Robotic Workers",
+        goal: "Reach 50 PPS",
+        unlocked: false,
+        check: () => pps >= 50
     }
 ];
 
-function showPopup(text) {
-    let popup = document.createElement("div");
-    popup.innerHTML = text;
-    popup.style.cssText =
-        "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: gold; padding: 20px; border-radius: 10px; font-size: 24px; z-index: 9999;";
-    document.body.appendChild(popup);
-    setTimeout(() => popup.remove(), 3000);
-}
 
 function checkAchievements() {
     achievements.forEach(a => {
@@ -70,11 +69,18 @@ function checkAchievements() {
 }
 
 function updateDisplay() {
-    document.getElementById("scoreLabel").innerHTML =
-        "Pizzas: " + pizzas.toFixed(1) +
-        " (+" + pps.toFixed(1) + "/sec) | Chefs: " + chefs +
-        " | Ovens: " + ovens + " | Restaurants: " + restaurants;
+  document.getElementById("scoreLabel").innerHTML =
+    "Pizzas: " + pizzas.toFixed(1) + " (+" + pps.toFixed(1) + "/sec)";
+
+
+    document.getElementById("chefLabel").innerText = "Owned: " + chefs;
+    document.getElementById("ovenLabel").innerText = "Owned: " + ovens;
+    document.getElementById("restaurantLabel").innerText = "Owned: " + restaurants;
+    document.getElementById("managerLabel").innerText = "Owned: " + managers;
+
 }
+
+
 
 function pizzaClicked() {
     pizzas = Number((pizzas + pizzasPerClick).toFixed(1));
@@ -134,6 +140,16 @@ function buyRestaurant() {
         pizzas -= 2000;
         restaurants++;
         pps = Number((pps + 5).toFixed(1));
+        updateDisplay();
+        checkAchievements();
+    }
+}
+
+function buyManager() {
+    if (pizzas >= 5000) {
+        pizzas -= 5000;
+        managers++;
+        pps = Number((pps + 17.5).toFixed(1));
         updateDisplay();
         checkAchievements();
     }
