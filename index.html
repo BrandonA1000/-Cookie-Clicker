@@ -7,9 +7,10 @@
         body {
             background-color: lightblue;
             font-family: Arial, sans-serif;
+            text-align: center;
         }
 
-        /* Version / Update Label */
+        /* Update Label */
         #updateLabel {
             position: absolute;
             top: 40px;
@@ -191,12 +192,62 @@
             text-align: center;
             overflow-y: auto;
         }
+
+        /* ⭐ MOBILE RESPONSIVE MODE ⭐ */
+        @media (max-width: 768px) {
+
+            #updateLabel {
+                top: 20px;
+                font-size: 28px;
+            }
+
+            #scoreLabel {
+                position: static;
+                margin-top: 80px;
+                font-size: 24px;
+            }
+
+            #pizzaButton {
+                position: static;
+                margin-top: 20px;
+                width: 120px;
+                height: 120px;
+                font-size: 80px;
+            }
+
+            #achievementsBtn, #updatesBtn,
+            #saveBtn, #resetBtn {
+                position: static;
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+
+            #clickTitle, #autoTitle {
+                position: static;
+                margin-top: 30px;
+            }
+
+            #upgrade1, #upgrade2, #upgrade3, #upgrade4,
+            #chefBtn, #ovenBtn, #restaurantBtn, #managerBtn {
+                position: static;
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+
+            #upgrade1Label, #upgrade2Label, #upgrade3Label, #upgrade4Label,
+            #chefLabel, #ovenLabel, #restaurantLabel, #managerLabel {
+                position: static;
+                margin-bottom: 10px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- Big Update Label -->
+    <!-- Update Label -->
     <h1 id="updateLabel">New Update – Version 1.1.0</h1>
 
     <!-- Pizza Counter -->
