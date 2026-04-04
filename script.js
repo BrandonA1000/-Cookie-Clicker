@@ -188,55 +188,50 @@ function closeAchievements() {
 
 // Save game
 function saveGame() {
-    const saveData = {
-        pizzas, pizzasPerClick, pps,
-        chefs, ovens, restaurants, managers,
-        upgrade1Owned, upgrade2Owned, upgrade3Owned, upgrade4Owned,
+    const data = {
+        pizzas,
+        pps,
+        upgrade1Owned,
+        upgrade2Owned,
+        upgrade3Owned,
+        upgrade4Owned,
+        chefs,
+        ovens,
+        restaurants,
+        managers,
         achievements
     };
 
-    localStorage.setItem("pizzaSave", JSON.stringify(saveData));
-    alert("Game Saved!");
+    localStorage.setItem("pizzaSave", JSON.stringify(data));
 }
 
-// Load game
+
+ // Load game
 function loadGame() {
-    const data = JSON.parse(localStorage.getItem("pizzaSave"));
-    if (!data) return; // No save found
+    let save = localStorage.getItem("pizzaSave");
+    if (!save) return; // no save found
 
-    // Load basic values
-    pizzas = data.pizzas;
-    pizzasPerClick = data.pizzasPerClick;
-    pps = data.pps;
+    try {
+        let data = JSON.parse(save);
 
-    chefs = data.chefs;
-    ovens = data.ovens;
-    restaurants = data.restaurants;
-    managers = data.managers;
+        pizzas = data.pizzas ?? pizzas;
+        pps = data.pps ?? pps;
 
-    upgrade1Owned = data.upgrade1Owned;
-    upgrade2Owned = data.upgrade2Owned;
-    upgrade3Owned = data.upgrade3Owned;
-    upgrade4Owned = data.upgrade4Owned;
+        upgrade1Owned = data.upgrade1Owned ?? 0;
+        upgrade2Owned = data.upgrade2Owned ?? 0;
+        upgrade3Owned = data.upgrade3Owned ?? 0;
+        upgrade4Owned = data.upgrade4Owned ?? 0;
 
-    // -------------------------------
-    // MERGE ACHIEVEMENTS SAFELY
-    // -------------------------------
-    // This keeps your new achievements
-    // while restoring unlocked ones from the save.
-    // No more resets needed when adding new achievements!
-    // -------------------------------
-    if (data.achievements) {
-        achievements.forEach((achievement, index) => {
-            // If the saved file has this achievement index,
-            // copy its unlocked status.
-            if (data.achievements[index]) {
-                achievement.unlocked = data.achievements[index].unlocked;
-            }
-        });
+        chefs = data.chefs ?? 0;
+        ovens = data.ovens ?? 0;
+        restaurants = data.restaurants ?? 0;
+        managers = data.managers ?? 0;
+
+        achievements = data.achievements ?? achievements;
+
+    } catch (e) {
+        console.error("Save corrupted, ignoring.");
     }
-
-    updateDisplay();
 }
 
 
