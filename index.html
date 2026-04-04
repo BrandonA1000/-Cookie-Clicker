@@ -10,6 +10,22 @@
             text-align: center;
         }
 
+        /* Rotate Warning Screen */
+        #rotateWarning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: lightblue;
+            z-index: 99999;
+            text-align: center;
+            padding-top: 40%;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
         /* Update Label */
         #updateLabel {
             position: absolute;
@@ -192,60 +208,16 @@
             text-align: center;
             overflow-y: auto;
         }
-
-        /* ⭐ MOBILE RESPONSIVE MODE ⭐ */
-        @media (max-width: 768px) {
-
-            #updateLabel {
-                top: 20px;
-                font-size: 28px;
-            }
-
-            #scoreLabel {
-                position: static;
-                margin-top: 80px;
-                font-size: 24px;
-            }
-
-            #pizzaButton {
-                position: static;
-                margin-top: 20px;
-                width: 120px;
-                height: 120px;
-                font-size: 80px;
-            }
-
-            #achievementsBtn, #updatesBtn,
-            #saveBtn, #resetBtn {
-                position: static;
-                display: block;
-                margin: 10px auto;
-                width: 80%;
-            }
-
-            #clickTitle, #autoTitle {
-                position: static;
-                margin-top: 30px;
-            }
-
-            #upgrade1, #upgrade2, #upgrade3, #upgrade4,
-            #chefBtn, #ovenBtn, #restaurantBtn, #managerBtn {
-                position: static;
-                display: block;
-                margin: 10px auto;
-                width: 80%;
-            }
-
-            #upgrade1Label, #upgrade2Label, #upgrade3Label, #upgrade4Label,
-            #chefLabel, #ovenLabel, #restaurantLabel, #managerLabel {
-                position: static;
-                margin-bottom: 10px;
-            }
-        }
     </style>
 </head>
 
 <body>
+
+    <!-- Rotate Warning -->
+    <div id="rotateWarning">
+        Please rotate your device<br>
+        This game is landscape only
+    </div>
 
     <!-- Update Label -->
     <h1 id="updateLabel">New Update – Version 1.1.0</h1>
@@ -329,6 +301,26 @@
     </div>
 
     <script src="script.js"></script>
+
+    <script>
+        /* Landscape Lock */
+        function checkOrientation() {
+            const warning = document.getElementById("rotateWarning");
+            const game = document.body;
+
+            if (window.innerHeight > window.innerWidth) {
+                warning.style.display = "block";
+                game.style.visibility = "hidden";
+            } else {
+                warning.style.display = "none";
+                game.style.visibility = "visible";
+            }
+        }
+
+        window.addEventListener("resize", checkOrientation);
+        window.addEventListener("orientationchange", checkOrientation);
+        window.addEventListener("load", checkOrientation);
+    </script>
 
 </body>
 </html>
